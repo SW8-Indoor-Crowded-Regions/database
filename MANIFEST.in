@@ -1,0 +1,12 @@
+
+# Exclude all .nix and .yaml files at the root and in any subdirectory
+exclude *.nix
+exclude *.yaml
+exclude *.lock
+exclude .envrc
+recursive-exclude * *.nix
+recursive-exclude * *.yaml
+recursive-exclude * *.lock
+recursive-exclude * .envrc
+
+

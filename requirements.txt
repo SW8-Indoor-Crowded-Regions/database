@@ -1,5 +1,4 @@
 mongoengine==0.29.1
 pymongo==4.11.2
 python-dotenv==1.0.1
-setuptools==75.6.0
 setuptools==75.8.2
