@@ -1,0 +1,7 @@
+[run]
+omit =
+    models/__init__.py
+    test/*
+[report]
+show_missing = true
+precision = 2
