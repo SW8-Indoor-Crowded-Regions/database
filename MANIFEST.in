@@ -4,9 +4,13 @@ exclude *.nix
 exclude *.yaml
 exclude *.lock
 exclude .envrc
+exclude pytest.ini
+exclude .coveragerc
 recursive-exclude * *.nix
 recursive-exclude * *.yaml
 recursive-exclude * *.lock
 recursive-exclude * .envrc
+recursive-exclude * pytest.ini
+recursive-exclude * .coveragerc
 
 
