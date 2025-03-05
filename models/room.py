@@ -10,7 +10,7 @@ rooms_validator = {
             "type": {
                 "bsonType": "string",
                 "description": "Type of the room (string or enum)",
-                "enum": ["MEETING", "LOBBY", "OFFICE", ...]  # Add more enums if needed
+                "enum": ["MEETING", "LOBBY", "OFFICE"]  # Add more enums if needed
             },
             "crowdFactor": {
                 "bsonType": "double",

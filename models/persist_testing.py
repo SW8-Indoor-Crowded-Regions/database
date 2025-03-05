@@ -92,13 +92,13 @@ sensor3 = db.sensors.insert_one({
 visitor1 = db.visitors.insert_one({
     "name": "John Doe",
     "visitedRooms": [room1.inserted_id],
-    "visitDate": datetime.datetime.utcnow()
+    "visitDate": datetime.datetime.now()
 })
 
 visitor2 = db.visitors.insert_one({
     "name": "Jane Smith",
     "visitedRooms": [room1.inserted_id, room2.inserted_id],
-    "visitDate": datetime.datetime.utcnow()
+    "visitDate": datetime.datetime.now()
 })
 
 # --------------------------------------
