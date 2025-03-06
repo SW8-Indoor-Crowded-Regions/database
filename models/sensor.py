@@ -4,8 +4,7 @@ from mongoengine import (
     StringField, 
     ListField, 
     IntField, 
-    ReferenceField, 
-    ValidationError
+    ReferenceField
 )
 from room import Room
 
