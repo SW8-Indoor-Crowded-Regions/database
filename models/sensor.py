@@ -1,4 +1,3 @@
-# sensor.py
 from mongoengine import (
     Document, 
     StringField, 

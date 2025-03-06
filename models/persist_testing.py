@@ -1,5 +1,4 @@
 import os
-import datetime
 from mongoengine import (
     connect
 )
@@ -7,11 +6,11 @@ from dotenv import load_dotenv
 
 from room import Room
 from sensor import Sensor
-from visitor import Visitor
 
 # --------------------------------------
 # 1) Load environment variables & connect to MongoDB
 # --------------------------------------
+
 load_dotenv()
 uri = os.getenv("MONGO_URL", "")
 db_name = "indoor-crowd"
@@ -64,19 +63,6 @@ sensor3 = Sensor(
     rooms=[room1, room2]
 ).save()
 
-# Insert Visitors
-visitor1 = Visitor(
-    name="John Doe",
-    visited_rooms=[room1],
-    visit_date=datetime.datetime.now()
-).save()
-
-visitor2 = Visitor(
-    name="Jane Smith",
-    visited_rooms=[room1, room2],
-    visit_date=datetime.datetime.now()
-).save()
-
 # --------------------------------------
 # 4) Query examples
 # --------------------------------------
@@ -87,11 +73,3 @@ for r in Room.objects:
 print("\nAll Sensors:")
 for s in Sensor.objects:
     print(s.to_json())
-
-print("\nAll Visitors:")
-for v in Visitor.objects:
-    print(v.to_json())
-
-print(f"\nVisitors who visited room1 (id={room1.id}):")
-for v in Visitor.objects(visited_rooms=room1):
-    print(v.to_json())
