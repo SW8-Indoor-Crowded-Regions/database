@@ -1,9 +1,6 @@
 
 # Include all Python files in models directory
-recursive-include models *.py
-
-# Include requirements.txt
-include requirements.txt
+recursive-include db *.py
 
 # Exclude development files
 exclude *.nix
