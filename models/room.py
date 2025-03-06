@@ -1,4 +1,4 @@
-from mongoengine import Document, StringField, FloatField, ValidationError, connect
+from mongoengine import Document, StringField, FloatField
 
 class Room(Document):
     # This field is required and must be a non-empty string.
@@ -12,3 +12,8 @@ class Room(Document):
     
     # Also required, must be a float, and can't be negative.
     area = FloatField(required=True, min_value=0)
+
+    longitude = FloatField(required=True, min_value=0)
+    latitude = FloatField(required=True, min_value=0)
+
+

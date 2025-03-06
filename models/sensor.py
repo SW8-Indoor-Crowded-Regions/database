@@ -7,7 +7,7 @@ from mongoengine import (
     ReferenceField, 
     ValidationError
 )
-from .room import Room
+from room import Room
 
 class Sensor(Document):
     name = StringField(required=True)
