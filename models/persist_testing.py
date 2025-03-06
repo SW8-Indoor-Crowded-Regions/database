@@ -30,14 +30,18 @@ room1 = Room(
     name="Conference Room",
     type="MEETING",
     crowd_factor=0.8,
-    area=45.5
+    area=45.5,
+    longitude=100,
+    latitude=100
 ).save()
 
 room2 = Room(
     name="Lobby",
     type="LOBBY",
     crowd_factor=0.3,
-    area=120.0
+    area=120.0,
+    longitude=100,
+    latitude=100
 ).save()
 
 # Insert Sensors referencing the Rooms
@@ -45,19 +49,19 @@ room2 = Room(
 sensor1 = Sensor(
     name="Sensor-A",
     movements=[[5, 3], [1, 2]],
-    room=room1
+    rooms=[room1]
 ).save()
 
 sensor2 = Sensor(
     name="Sensor-B",
     movements=[[2, 1]],
-    room=room1
+    rooms=[room1]
 ).save()
 
 sensor3 = Sensor(
     name="Sensor-C",
     movements=[[10, 7], [4, 3]],
-    room=room2
+    rooms=[room1, room2]
 ).save()
 
 # Insert Visitors
