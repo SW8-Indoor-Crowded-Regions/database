@@ -1,23 +1,16 @@
-visitors_validator = {
-    "$jsonSchema": {
-        "bsonType": "object",
-        "required": ["name", "visitedRooms"],
-        "properties": {
-            "name": {
-                "bsonType": "string",
-                "description": "Name of the visitor"
-            },
-            "visitedRooms": {
-                "bsonType": "array",
-                "items": {
-                    "bsonType": "objectId"
-                },
-                "description": "List of room IDs the visitor has visited"
-            },
-            "visitDate": {
-                "bsonType": "date",
-                "description": "Optional date of visit"
-            }
-        }
-    }
-}
+
+from mongoengine import (
+    Document,
+    StringField,
+    ListField,
+    ObjectIdField,
+    DateTimeField
+)
+
+class Visitor(Document):
+    name = StringField(required=True)
+    
+    # "visitedRooms" as an array of ObjectId
+    visited_rooms = ListField(ObjectIdField(), required=True)
+    
+    visit_date = DateTimeField()
