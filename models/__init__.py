@@ -22,10 +22,10 @@ class Database:
         collections = self.db.list_collection_names()
         
         if "rooms" not in collections:
-            self.db.create_collection("rooms", validator=rooms_validator)
+            self.db.create_collection("rooms")
         
         if "sensors" not in collections:
-            self.db.create_collection("sensors", validator=sensors_validator)
+            self.db.create_collection("sensors")
             
     def close(self):
         """Close the database connection"""
