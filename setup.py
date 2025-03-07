@@ -7,6 +7,7 @@ setup(
     install_requires=[
         "pymongo",
         "python-dotenv"
+        "mongoegine"
     ],
     description="Database models for indoor region detection",
     author="Group 1 - SW8",
