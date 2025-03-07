@@ -9,6 +9,7 @@ exclude *.lock
 exclude .envrc
 exclude pytest.ini
 exclude .coveragerc
+exclude test/*
 recursive-exclude * *.nix
 recursive-exclude * *.yaml
 recursive-exclude * *.lock
