@@ -44,7 +44,7 @@ def sample_sensor(sample_room):
 def test_mock_room_creation():
     """Demonstrate creating and querying a room with mock database."""
     # Create a room
-    room = Room(
+    Room(
         name="Test Room",
         type="MEETING",
         crowd_factor=0.5,
@@ -71,7 +71,7 @@ def test_mock_room_creation():
 def test_mock_sensor_with_room(sample_room):
     """Demonstrate sensor operations with referenced room using mock database."""
     # Create a sensor referencing the room
-    sensor = Sensor(
+    Sensor(
         name="Test Sensor",
         movements=[[1, 2], [3, 4]],
         rooms=[sample_room]
@@ -127,7 +127,7 @@ def test_mock_bulk_operations():
          "area": 100.0, "longitude": 10.0, "latitude": 20.0}
         for i in range(5)
     ]
-    rooms = [Room(**data).save() for data in rooms_data]
+    [Room(**data).save() for data in rooms_data]
 
     # Bulk update
     Room.objects(type="OFFICE").update(crowd_factor=0.8)
