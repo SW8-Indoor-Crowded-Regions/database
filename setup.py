@@ -6,7 +6,8 @@ setup(
     packages=find_packages(),
     install_requires=[
         "pymongo",
-        "python-dotenv"
+        "python-dotenv",
+        "mongoengine"
     ],
     description="Database models for indoor region detection",
     author="Group 1 - SW8",
