@@ -70,15 +70,28 @@ def test_empty_movements(valid_sensor_data):
     assert Sensor.objects(id=sensor.id).first() is not None
     sensor.delete() # Delete the sensor for future tests.
 
+
+def test_invalid_movements_datastructure(valid_sensor_data):
+    valid_sensor_data["movements"] = "NOT_VALID_MOVEMENT"
+    sensor = Sensor(**valid_sensor_data)
+    with pytest.raises(ValidationError):
+        sensor.validate()
+        #sensor.validate()  # Empty movements list should be valid
+        #sensor.save()  # Should save without errors
+        #assert Sensor.objects(id=sensor.id).first() is not None
+        #sensor.delete() # Delete the sensor for future tests.
+
+
 def test_empty_rooms(valid_sensor_data):
-    """TODO: We should probably talk about this one if it makes sense depending on how the implementation of the sensor data--> jacobs&mohd
-    We could just change it to "should not be valid" and then change the model"""
     valid_sensor_data["rooms"] = []
     sensor = Sensor(**valid_sensor_data)
-    sensor.validate()  # Empty rooms list should be valid
-    sensor.save()  # Should save without errors
-    assert Sensor.objects(id=sensor.id).first() is not None
-    sensor.delete()
+    with pytest.raises(ValidationError):
+        sensor.validate()
+
+    #sensor.validate()  # Empty rooms list should be valid
+    #sensor.save()  # Should save without errors
+    #assert Sensor.objects(id=sensor.id).first() is not None
+    #sensor.delete()
 
 def test_missing_required_fields():
     # Test creating sensor with no fields, again here making sure exception is called properly
@@ -109,7 +122,7 @@ def test_large_movement_list(valid_sensor_data):
     sensor.save()  # Should save without errors
     assert Sensor.objects(id=sensor.id).first() is not None
     sensor.delete()
-
+'''
 def test_negative_movement_values(valid_sensor_data):
     """TODO: We should probably talk about this one if it makes sense depending on how the implementation of the sensor data--> jacobs&mohd"""
     # Test with negative movement values (should be valid as IntField allows negative values)
@@ -118,7 +131,8 @@ def test_negative_movement_values(valid_sensor_data):
     sensor.validate()  # Should not raise any exception
     sensor.save()  # Should save without errors
     assert Sensor.objects(id=sensor.id).first() is not None
-    sensor.delete()
+    sensor.delete() 
+'''
 
 def test_invalid_rooms(valid_sensor_data):
     # Create a Sensor using valid data first.

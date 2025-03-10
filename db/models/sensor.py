@@ -6,7 +6,7 @@ class Sensor(Document):
     movements = ListField(
         ListField(IntField(), min_length=2, max_length=2), required=False
     )
-    rooms = ListField(ReferenceField(Room), required=False)
+    rooms = ListField(ReferenceField(Room), required=True, min_length=2, max_length=2)
 
     def clean(self):
         """Custom validation rules."""

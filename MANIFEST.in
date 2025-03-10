@@ -1,4 +1,3 @@
-
 # Include all Python files in models directory
 recursive-include db *.py
 
@@ -16,5 +15,3 @@ recursive-exclude * *.lock
 recursive-exclude * .envrc
 recursive-exclude * pytest.ini
 recursive-exclude * .coveragerc
-
-
