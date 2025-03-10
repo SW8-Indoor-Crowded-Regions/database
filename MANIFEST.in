@@ -1,9 +1,5 @@
-
 # Include all Python files in models directory
-recursive-include models *.py
-
-# Include requirements.txt
-include requirements.txt
+recursive-include db *.py
 
 # Exclude development files
 exclude *.nix
@@ -12,11 +8,10 @@ exclude *.lock
 exclude .envrc
 exclude pytest.ini
 exclude .coveragerc
+exclude test/*
 recursive-exclude * *.nix
 recursive-exclude * *.yaml
 recursive-exclude * *.lock
 recursive-exclude * .envrc
 recursive-exclude * pytest.ini
 recursive-exclude * .coveragerc
-
-

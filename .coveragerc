@@ -1,6 +1,7 @@
 [run]
 omit =
-    models/__init__.py
+    db/__init__.py
+    db/models/__init__.py
     test/*
 [report]
 show_missing = true
