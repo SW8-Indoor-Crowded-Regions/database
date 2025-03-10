@@ -1,8 +1,11 @@
 from mongoengine import Document, StringField, FloatField, ValidationError
 
+# Define allowed room types as a constant variable
+ROOM_TYPES = ("MEETING", "LOBBY", "OFFICE", "EXHIBITION", "RESTROOM", "SHOP", "RESTAURANT")
+
 class Room(Document):
     name = StringField(required=True)
-    type = StringField(required=True, choices=["MEETING", "LOBBY", "OFFICE"])
+    type = StringField(required=True, choices=ROOM_TYPES)
     crowd_factor = FloatField(required=True, min_value=0)
     area = FloatField(required=True, min_value=0)
     longitude = FloatField(required=True, min_value=0)
@@ -16,9 +19,9 @@ class Room(Document):
         if not self.name or not self.name.strip():
             raise ValidationError("Name cannot be empty")
         
-        # Validate type is one of the allowed choices
-        if self.type not in ["MEETING", "LOBBY", "OFFICE"]:
-            raise ValidationError("Type must be one of: MEETING, LOBBY, OFFICE")
+        # Validate that type is one of the allowed choices
+        if self.type not in ROOM_TYPES:
+            raise ValidationError("Type must be one of: " + ", ".join(ROOM_TYPES))
         
         # Validate crowd_factor is a number and non-negative
         if self.crowd_factor is None or not isinstance(self.crowd_factor, (int, float)):
