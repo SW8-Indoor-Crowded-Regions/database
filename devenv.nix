@@ -5,9 +5,6 @@
   inputs,
   ...
 }: {
-  packages = with pkgs; [
-    pipreqs
-  ];
   languages.python = {
     enable = true;
     version = "3.11.9";
