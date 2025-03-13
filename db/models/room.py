@@ -7,6 +7,7 @@ class Room(Document):
     name = StringField(required=True)
     type = StringField(required=True, choices=ROOM_TYPES)
     crowd_factor = FloatField(required=True, min_value=0)
+    occupancy = FloatField(min_value=0, default=0)
     area = FloatField(required=True, min_value=0)
     longitude = FloatField(required=True, min_value=0)
     latitude = FloatField(required=True, min_value=0)
