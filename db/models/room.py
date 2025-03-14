@@ -17,7 +17,7 @@ class Room(Document):
         super().clean()
         
         # Validate that name is not empty or just whitespace
-        if not self.name or not self.name.strip():
+        if not self.name or not self.name.strip(): # type: ignore
             raise ValidationError("Name cannot be empty")
         
         # Validate that type is one of the allowed choices
