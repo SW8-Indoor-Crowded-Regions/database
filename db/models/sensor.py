@@ -1,4 +1,4 @@
-from mongoengine import Document, StringField, ListField, IntField, ReferenceField, ValidationError
+from mongoengine import Document, StringField, ListField, ReferenceField, ValidationError
 from .room import Room
 
 class Sensor(Document):

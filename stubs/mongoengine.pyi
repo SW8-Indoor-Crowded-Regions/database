@@ -1,6 +1,4 @@
-from typing import Type, Any, Optional, TypeVar, List, Union, overload, Iterator
-from mongoengine import ComplexBaseField
-
+from typing import Type, Any, Optional, TypeVar, List, Union, overload
 T = TypeVar('T', bound='Document')
 
 class BaseField:
