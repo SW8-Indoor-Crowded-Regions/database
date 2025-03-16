@@ -10,7 +10,7 @@ def setup_mock_db():
     disconnect()  # Disconnect from any previous connections
     
     # Connect to a mock MongoDB instance
-    connect('mongoenginetest', host='mongodb://localhost', mongo_client_class=mongomock.MongoClient, uuidRepresentation='standard')
+    connect(db='mongoenginetest', host='mongodb://localhost', mongo_client_class=mongomock.MongoClient, uuidRepresentation='standard')
     
     yield  # Run the test
     
