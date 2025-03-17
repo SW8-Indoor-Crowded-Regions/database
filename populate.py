@@ -168,7 +168,6 @@ def create_rooms_and_sensors():
                 sensor_name = f"Sensor_{pair[0]}_{pair[1]}"
                 sensor = Sensor(
                     name=sensor_name,
-                    movements=[],  # or any data you have
                     rooms=[room_objects[pair[0]], room_objects[pair[1]]]
                 )
                 sensor.save()

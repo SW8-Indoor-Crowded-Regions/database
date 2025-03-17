@@ -3,7 +3,7 @@ from .room import Room
 
 class Sensor(Document):
     name = StringField(required=True)
-    rooms = ListField(ReferenceField(Room, dbref=True), required=True, min_length=2, max_length=2)
+    rooms = ListField(ReferenceField(Room, dbref=False), required=True, min_length=2, max_length=2)
 
     def clean(self):
         """Custom validation rules."""
