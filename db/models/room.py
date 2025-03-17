@@ -24,6 +24,7 @@ class Room(Document):
 			(self.type, self.validate_choice, "Type must be one of: " + ", ".join(ROOM_TYPES)),
 			(self.crowd_factor, self.validate_non_negative_number, "Crowd factor must be a non-negative number"),
 			(self.area, self.validate_non_negative_number, "Area must be a non-negative number"),
+			(self.occupants, self.validate_non_negative_number, "Occupants must be a non-negative number"),
 			(self.longitude, self.validate_non_negative_number, "Longitude must be a non-negative number"),
 			(self.latitude, self.validate_non_negative_number, "Latitude must be a non-negative number")
 		]

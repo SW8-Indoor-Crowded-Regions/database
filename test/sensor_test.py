@@ -79,20 +79,6 @@ def test_empty_name(valid_sensor_data):
 	with pytest.raises(ValidationError):
 		sensor.validate()
 
-
-'''
-def test_negative_movement_values(valid_sensor_data):
-    """TODO: We should probably talk about this one if it makes sense depending on how the implementation of the sensor data--> jacobs&mohd"""
-    # Test with negative movement values (should be valid as IntField allows negative values)
-    valid_sensor_data["movements"] = [[-1, -2], [-3, -4]]
-    sensor = Sensor(**valid_sensor_data)
-    sensor.validate()  # Should not raise any exception
-    sensor.save()  # Should save without errors
-    assert Sensor.objects(id=sensor.id).first() is not None
-    sensor.delete() 
-'''
-
-
 def test_invalid_rooms(valid_sensor_data):
 	# Create a Sensor using valid data first.
 	sensor = Sensor(**valid_sensor_data)
