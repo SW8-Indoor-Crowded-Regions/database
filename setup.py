@@ -9,6 +9,10 @@ setup(
         "python-dotenv",
         "mongoengine"
     ],
+    include_package_data=True,
+    package_data={
+        "": ["stubs/*.pyi"], 
+    },
     description="Database models for indoor region detection",
     author="Group 1 - SW8",
     url="https://github.com/SW8-Indoor-Crowded-Regions/database",
