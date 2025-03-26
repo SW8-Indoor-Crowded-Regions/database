@@ -1,5 +1,6 @@
 # Include all Python files in models directory
 recursive-include db *.py
+recursive-include stubs *.pyi
 
 # Exclude development files
 exclude *.nix
