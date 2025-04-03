@@ -12,6 +12,10 @@ add @<branchname> to the end
 pip install git+https://github.com/SW8-Indoor-Crowded-Regions/database
 ```
 
+If you already have an outdated version of the database installed and listed in requirements.txt, run below command to update
+```bash
+pip install --upgrade --no-cache-dir -r requirements.txt
+```
 
 ## Usage
 
