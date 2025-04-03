@@ -4,6 +4,10 @@ import mongomock
 from db.models import Room
 from mongoengine.errors import ValidationError
 
+numeric_fields = ["crowd_factor", "popularity_factor", "area", "longitude", "latitude"]
+numerics_with_no_bounds = ["area", "longitude", "latitude"]
+numeric_factors = ["crowd_factor", "popularity_factor"]
+
 @pytest.fixture(autouse=True)
 def setup_mock_db():
 	"""Setup mock database before each test."""
@@ -23,6 +27,7 @@ def valid_room_data():
 		  "name": "Test Room",
 		  "type": "MEETING",
 		  "crowd_factor": 0.5,
+		  "popularity_factor": 0.5,
 		  "area": 100.0,
 		  "longitude": 12.34,
 		  "latitude": 56.78
@@ -42,7 +47,6 @@ def test_invalid_room_type(valid_room_data):
 
 def test_negative_values(valid_room_data):
 	# Test each numeric field with negative values
-	numeric_fields = ["crowd_factor", "area", "longitude", "latitude"]
 	
 	for field in numeric_fields:
 		invalid_data = valid_room_data.copy()
@@ -59,9 +63,8 @@ def test_missing_required_fields():
 
 def test_zero_values(valid_room_data):
 	# Test boundary case with zero values (should be valid)
-	numeric_fields = ["crowd_factor", "area", "longitude", "latitude"]
 	
-	for field in numeric_fields:
+	for field in numerics_with_no_bounds:
 		valid_data = valid_room_data.copy()
 		valid_data[field] = 0.0
 		room = Room(**valid_data)
@@ -69,6 +72,13 @@ def test_zero_values(valid_room_data):
 		room.save()  # Should save without errors
 		assert Room.objects(id=room.id).first() is not None
 		room.delete()
+
+def test_zero_values_for_factors(valid_room_data):
+	valid_room_data["crowd_factor"] = 0.0
+	valid_room_data["popularity_factor"] = 0.0
+	room = Room(**valid_room_data)
+	with pytest.raises(ValidationError):
+		room.validate()
 
 def test_all_room_types(valid_room_data):
 	# Test all valid room types
@@ -97,9 +107,8 @@ def test_empty_name(valid_room_data):
 
 def test_very_large_values(valid_room_data):
 	# Test with very large values (should be valid)
-	numeric_fields = ["crowd_factor", "area", "longitude", "latitude"]
 	
-	for field in numeric_fields:
+	for field in numerics_with_no_bounds:
 		valid_data = valid_room_data.copy()
 		valid_data[field] = 1e10  # Very large number
 		room = Room(**valid_data)
@@ -107,6 +116,14 @@ def test_very_large_values(valid_room_data):
 		room.save()  # Should save without errors
 		assert Room.objects(id=room.id).first() is not None
 		room.delete()
+
+def test_max_value_for_factors(valid_room_data):
+	"""test max value for room factors"""
+	valid_room_data["popularity_factor"] = 2.1
+	valid_room_data["crowd_factor"] = 2.1
+	room = Room(**valid_room_data)
+	with pytest.raises(ValidationError):
+		room.validate()
 
 def test_whitespace_name(valid_room_data):
 	"""Test that a name containing only whitespace is rejected."""
@@ -118,6 +135,13 @@ def test_whitespace_name(valid_room_data):
 def test_invalid_crowd_factor_type(valid_room_data):
 	"""Test that a non-numeric crowd_factor raises a ValidationError."""
 	valid_room_data["crowd_factor"] = "high"
+	room = Room(**valid_room_data)
+	with pytest.raises(ValidationError):
+		room.validate()
+
+def test_invalid_popularity_factor_type(valid_room_data):
+	"""Test that a non-numeric popularity_factor raises a ValidationError."""
+	valid_room_data["popularity_factor"] = "high"
 	room = Room(**valid_room_data)
 	with pytest.raises(ValidationError):
 		room.validate()
@@ -167,6 +191,13 @@ def test_type_none(valid_room_data):
 def test_crowd_factor_none(valid_room_data):
 	"""Test that a None value for crowd_factor raises a ValidationError."""
 	valid_room_data["crowd_factor"] = None
+	room = Room(**valid_room_data)
+	with pytest.raises(ValidationError):
+		room.validate()
+
+def test_popularity_factor_none(valid_room_data):
+	"""Test that a None value for popularity_factor raises a ValidationError."""
+	valid_room_data["popularity_factor"] = None
 	room = Room(**valid_room_data)
 	with pytest.raises(ValidationError):
 		room.validate()
