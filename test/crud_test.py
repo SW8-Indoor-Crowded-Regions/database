@@ -170,7 +170,7 @@ def test_room_deletion():
 
 def test_sensor_creation_with_room(sample_room):
 	"""Test that a sensor referencing a room is created correctly."""
-	sensor = Sensor(name='Test Sensor', rooms=[sample_room])
+	sensor = Sensor(name='Test Sensor', rooms=[sample_room], latitude=72.1280321, longitude=32.180212)
 	sensor.save()
 	found_sensor = Sensor.objects(name='Test Sensor').first()
 	assert found_sensor is not None
