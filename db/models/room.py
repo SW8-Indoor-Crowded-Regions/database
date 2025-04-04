@@ -1,9 +1,10 @@
-from mongoengine import Document, StringField, FloatField, ValidationError
+from mongoengine import Document, StringField, FloatField, ValidationError, ObjectIdField
 
 # Define allowed room types as a constant variable
 ROOM_TYPES = ("MEETING", "LOBBY", "OFFICE", "EXHIBITION", "RESTROOM", "SHOP", "RESTAURANT")
 
 class Room(Document):
+	_id = ObjectIdField(required=False, primary_key=True)
 	name = StringField(required=True)
 	type = StringField(required=True, choices=ROOM_TYPES)
 	crowd_factor = FloatField(required=True, min_value=0.1, max_value=2.0)
