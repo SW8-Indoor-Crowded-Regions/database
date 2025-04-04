@@ -1,7 +1,8 @@
-from mongoengine import Document, StringField, ListField, ReferenceField, ValidationError, FloatField
+from mongoengine import Document, StringField, ListField, ReferenceField, ValidationError, FloatField, ObjectIdField
 from .room import Room
 
 class Sensor(Document):
+    _id = ObjectIdField(required=False, primary_key=True)
     name = StringField(required=True)
     rooms = ListField(ReferenceField(Room, dbref=False), required=True, min_length=2, max_length=2)
     latitude = FloatField(required=True)
