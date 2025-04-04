@@ -6,7 +6,8 @@ ROOM_TYPES = ("MEETING", "LOBBY", "OFFICE", "EXHIBITION", "RESTROOM", "SHOP", "R
 class Room(Document):
 	name = StringField(required=True)
 	type = StringField(required=True, choices=ROOM_TYPES)
-	crowd_factor = FloatField(required=True, min_value=0)
+	crowd_factor = FloatField(required=True, min_value=0.1, max_value=2.0)
+	popularity_factor = FloatField(required=True, min_value=0.1, max_value=2.0)
 	occupants = FloatField(min_value=0, default=0)
 	area = FloatField(required=True, min_value=0)
 	longitude = FloatField(required=True, min_value=0)
@@ -22,7 +23,8 @@ class Room(Document):
 		validations = [
 			(self.name, self.validate_non_empty, "Name cannot be empty"),
 			(self.type, self.validate_choice, "Type must be one of: " + ", ".join(ROOM_TYPES)),
-			(self.crowd_factor, self.validate_non_negative_number, "Crowd factor must be a non-negative number"),
+			(self.crowd_factor, self.validate_non_negative_number, "Crowd factor must be a non-negative number between 0.1 and 2.0"),
+			(self.popularity_factor, self.validate_non_negative_number, "Popularity factor must be a non-negative number between 0.1 and 2.0"),
 			(self.area, self.validate_non_negative_number, "Area must be a non-negative number"),
 			(self.occupants, self.validate_non_negative_number, "Occupants must be a non-negative number"),
 			(self.longitude, self.validate_non_negative_number, "Longitude must be a non-negative number"),

@@ -32,6 +32,7 @@ def valid_room():
 		name='Test Room',
 		type='MEETING',
 		crowd_factor=0.5,
+		popularity_factor=0.5,
 		area=100.0,
 		longitude=12.34,
 		latitude=56.78,
