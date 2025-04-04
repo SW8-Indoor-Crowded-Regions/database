@@ -1,14 +1,18 @@
-from mongoengine import Document, StringField, ListField, ReferenceField, ValidationError
+from mongoengine import Document, StringField, ListField, ReferenceField, ValidationError, FloatField
 from .room import Room
 
 class Sensor(Document):
     name = StringField(required=True)
     rooms = ListField(ReferenceField(Room, dbref=False), required=True, min_length=2, max_length=2)
+    latitude = FloatField(required=True)
+    longitude = FloatField(required=True)
 
     def clean(self):
         """Custom validation rules."""
         self.validate_name()
         self.validate_rooms()
+        self.validate_coordinates(self.latitude, "Latitude")
+        self.validate_coordinates(self.longitude, "Longitude")
         super().clean()
 
     def validate_name(self):
@@ -22,3 +26,8 @@ class Sensor(Document):
             for room in self.rooms: # type: ignore
                 if not isinstance(room, Room):
                     raise ValidationError("Each room must be a valid Room instance")
+
+    def validate_coordinates(self, value, field_name: str):
+        """Validate latitude: ensure lat is valid"""
+        if value is None or not isinstance(value, float):
+            raise ValidationError(f"{field_name} must be a non-empty float")
