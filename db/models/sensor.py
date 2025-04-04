@@ -11,6 +11,8 @@ class Sensor(Document):
         """Custom validation rules."""
         self.validate_name()
         self.validate_rooms()
+        self.validate_coordinates(self.latitude, "Latitude")
+        self.validate_coordinates(self.longitude, "Longitude")
         super().clean()
 
     def validate_name(self):
@@ -25,3 +27,7 @@ class Sensor(Document):
                 if not isinstance(room, Room):
                     raise ValidationError("Each room must be a valid Room instance")
 
+    def validate_coordinates(self, value, field_name: str):
+        """Validate latitude: ensure lat is valid"""
+        if value is None or not isinstance(value, float):
+            raise ValidationError(f"{field_name} must be a non-empty float")
