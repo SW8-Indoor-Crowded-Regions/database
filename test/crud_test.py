@@ -5,7 +5,6 @@ from db.models import Room, Sensor
 
 # --- Fixtures ---
 
-
 @pytest.fixture(autouse=True)
 def setup_mock_db():
 	"""Setup and teardown the mock database for each test."""
@@ -31,6 +30,8 @@ def sample_room():
 		area=120.0,
 		longitude=10.0,
 		latitude=20.0,
+		floor=1,
+		borders=[[1.1, 1.0], [1.2, 1.0], [1.2, 1.0]],
 	)
 	room.save()
 	yield room
@@ -61,6 +62,8 @@ def sample_rooms():
 			area=100.0,
 			longitude=10.0,
 			latitude=20.0,
+			floor=1,
+			borders=[[1.1, 1.0], [1.2, 1.0], [1.2, 1.0]],
 		),
 		Room(
 			name='Room 2',
@@ -70,6 +73,8 @@ def sample_rooms():
 			area=150.0,
 			longitude=11.0,
 			latitude=21.0,
+			floor=1,
+			borders=[[1.1, 1.0], [1.2, 1.0], [1.2, 1.0]],
 		),
 		Room(
 			name='Room 3',
@@ -78,7 +83,9 @@ def sample_rooms():
 			popularity_factor=0.3,
 			area=200.0,
 			longitude=12.0,
-			latitude=22.0,
+			latitude=22.0,	
+			floor=1,
+			borders=[[1.1, 1.0], [1.2, 1.0], [1.2, 1.0]],
 		),
 	]
 	for room in rooms:
@@ -104,6 +111,8 @@ def create_room(name: str) -> Room:
 		area=100.0,
 		longitude=10.0,
 		latitude=20.0,
+		floor=1,
+		borders=[[1.1, 1.0], [1.2, 1.0], [1.2, 1.0]],
 	)
 	return room
 
@@ -140,10 +149,12 @@ def test_room_update():
 		area=100.0,
 		longitude=15.0,
 		latitude=25.0,
+		floor=1,
+		borders=[[1.1, 1.0], [1.2, 1.0], [1.2, 1.0]],
 	)
 	room.save()
 	room.update(crowd_factor=0.8)
-	updated_room = Room.objects(id=room.id).first()
+	updated_room = Room.objects(_id=room.id).first()
 	assert updated_room is not None
 	assert updated_room.crowd_factor == 0.8
 	room.delete()
@@ -159,6 +170,8 @@ def test_room_deletion():
 		area=100.0,
 		longitude=15.0,
 		latitude=25.0,
+		floor=1,
+		borders=[[1.1, 1.0], [1.2, 1.0], [1.2, 1.0]],
 	)
 	room.save()
 	room.delete()
@@ -170,7 +183,7 @@ def test_room_deletion():
 
 def test_sensor_creation_with_room(sample_room):
 	"""Test that a sensor referencing a room is created correctly."""
-	sensor = Sensor(name='Test Sensor', rooms=[sample_room], latitude=72.1280321, longitude=32.180212)
+	sensor = Sensor(name='Test Sensor', rooms=[sample_room], latitude=72.1280321, longitude=32.180212, floor=1)
 	sensor.save()
 	found_sensor = Sensor.objects(name='Test Sensor').first()
 	assert found_sensor is not None
@@ -216,6 +229,8 @@ def generate_rooms(num: int) -> list[Room]:
 			area=100.0,
 			longitude=10.0,
 			latitude=20.0,
+			floor=1,
+			borders=[[1.1, 1.0], [1.2, 1.0], [1.2, 1.0]],
 		)
 		for i in range(num)
 	]
