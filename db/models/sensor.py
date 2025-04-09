@@ -8,7 +8,6 @@ class Sensor(Document):
     rooms = ListField(ReferenceField(Room, dbref=False), required=True, min_length=2, max_length=2)
     latitude = FloatField(required=True)
     longitude = FloatField(required=True)
-    floor = IntField(required=True, min_value=1, max_value=3)
 
     def clean(self):
         """Custom validation rules."""
@@ -16,7 +15,6 @@ class Sensor(Document):
         self.validate_rooms()
         self.validate_coordinates(self.latitude, "Latitude")
         self.validate_coordinates(self.longitude, "Longitude")
-        self.validate_floor()
         super().clean()
 
     def validate_name(self):
@@ -35,8 +33,3 @@ class Sensor(Document):
         """Validate latitude: ensure lat is valid"""
         if value is None or not isinstance(value, float):
             raise ValidationError(f"{field_name} must be a non-empty float")
-    
-    def validate_floor(self):
-        """Validate floor: ensure floor is valid"""
-        if self.floor is None or not isinstance(self.floor, int) or self.floor <= 0 or self.floor > 3:
-            raise ValidationError("Floor must be a non-empty integer")

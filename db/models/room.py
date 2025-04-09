@@ -72,5 +72,5 @@ class Room(Document):
 			if not isinstance(border, list) or len(border) != 2:
 				raise ValidationError(error_message)
 			for coord in border:
-				if coord is None or not isinstance(coord, (float)):
+				if coord is None or not isinstance(coord, float):
 					raise ValidationError(error_message)

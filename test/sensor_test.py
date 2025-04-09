@@ -46,7 +46,7 @@ def valid_room():
 
 @pytest.fixture
 def valid_sensor_data(valid_room):
-	return {'name': 'Test Sensor', 'rooms': [valid_room], 'latitude': 12.34589358, 'longitude': 55.3712033, 'floor': 1}
+	return {'name': 'Test Sensor', 'rooms': [valid_room], 'latitude': 12.34589358, 'longitude': 55.3712033}
 
 
 def test_valid_sensor_creation(valid_sensor_data):
@@ -99,11 +99,5 @@ def test_invalid_coordinates_no_latitude(valid_sensor_data):
 def test_invalid_coordinates_invalid_longitude(valid_sensor_data):
 	sensor = Sensor(**valid_sensor_data)
 	sensor.longitude = 'invalid_longitude'
-	with pytest.raises(ValidationError):
-		sensor.validate()
-
-def test_invalid_floor(valid_sensor_data):
-	sensor = Sensor(**valid_sensor_data)
-	sensor.floor = 'invalid_floor'
 	with pytest.raises(ValidationError):
 		sensor.validate()
