@@ -1,4 +1,4 @@
-from mongoengine import Document, StringField, ListField, ReferenceField, ValidationError, FloatField, IntField, ObjectIdField
+from mongoengine import Document, StringField, ListField, ReferenceField, ValidationError, FloatField, ObjectIdField
 from .room import Room
 from bson import ObjectId
 
