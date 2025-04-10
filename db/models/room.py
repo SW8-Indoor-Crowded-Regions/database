@@ -16,7 +16,7 @@ class Room(Document):
 	latitude = FloatField(required=True, min_value=0)
 	floor = IntField(required=True, min_value=1, max_value=3)
 	borders = ListField(
-		ListField(FloatField(required=True, default=[1.1, 1.0]), required=True, min_length=2, max_length=2),
+		ListField(FloatField(required=True), required=True, min_length=2, max_length=2),
 		required=True, min_length=3
 	)
 
