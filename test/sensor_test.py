@@ -36,6 +36,8 @@ def valid_room():
 		area=100.0,
 		longitude=12.34,
 		latitude=56.78,
+		floor=1,
+		borders=[[1.1, 1.0], [1.2, 1.0], [1.2, 1.0]],
 	)
 	room.save()
 	yield room  # Pauses the fixture to be used elsewhere in other tests.

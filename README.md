@@ -41,7 +41,9 @@ room = Room(
     crowd_factor=0.3,
     area=120.0,
     longitude=100,
-    latitude=100
+    latitude=100,
+    floor=1
+    borders=[[12.2, 11.8], [12.3, 11.9], [12.4, 12.1]]
 ).save()
 
 # Verify data was persisted
@@ -60,6 +62,8 @@ for room in all_rooms:
 - area (double): Total area in square units
 - longitude (double): longitude coordinate
 - latitude (double): latitude coordinate
+- floor (int): which floor the room is located on
+- borders (List): list of lists (of two float) containing coordinates
 
 ### Sensor
 - name (string): Sensor identifier
