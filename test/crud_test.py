@@ -5,6 +5,7 @@ from db.models import Room, Sensor
 
 # --- Fixtures ---
 
+
 @pytest.fixture(autouse=True)
 def setup_mock_db():
 	"""Setup and teardown the mock database for each test."""
@@ -83,7 +84,7 @@ def sample_rooms():
 			popularity_factor=0.3,
 			area=200.0,
 			longitude=12.0,
-			latitude=22.0,	
+			latitude=22.0,
 			floor=1,
 			borders=[[1.1, 1.0], [1.2, 1.0], [1.2, 1.0]],
 		),
@@ -183,7 +184,13 @@ def test_room_deletion():
 
 def test_sensor_creation_with_room(sample_room):
 	"""Test that a sensor referencing a room is created correctly."""
-	sensor = Sensor(name='Test Sensor', rooms=[sample_room], latitude=72.1280321, longitude=32.180212)
+	sensor = Sensor(
+		name='Test Sensor',
+		rooms=[sample_room],
+		latitude=72.1280321,
+		longitude=32.180212,
+		is_vertical=True,
+	)
 	sensor.save()
 	found_sensor = Sensor.objects(name='Test Sensor').first()
 	assert found_sensor is not None

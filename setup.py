@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
 	name='indoor_crowded_region_detection_database',
-	version='1.0.8',
+	version='1.0.9',
 	packages=find_packages(),
 	install_requires=['pymongo', 'python-dotenv', 'mongoengine'],
 	include_package_data=True,

@@ -46,7 +46,13 @@ def valid_room():
 
 @pytest.fixture
 def valid_sensor_data(valid_room):
-	return {'name': 'Test Sensor', 'rooms': [valid_room], 'latitude': 12.34589358, 'longitude': 55.3712033}
+	return {
+		'name': 'Test Sensor',
+		'rooms': [valid_room],
+		'latitude': 12.34589358,
+		'longitude': 55.3712033,
+		'is_vertical': True,
+	}
 
 
 def test_valid_sensor_creation(valid_sensor_data):
@@ -82,13 +88,15 @@ def test_empty_name(valid_sensor_data):
 	with pytest.raises(ValidationError):
 		sensor.validate()
 
+
 def test_invalid_rooms(valid_sensor_data):
 	# Create a Sensor using valid data first.
 	sensor = Sensor(**valid_sensor_data)
 	# Introduce an invalid room (not an instance of Room)
-	sensor.rooms = ['not_a_room_instance'] # type: ignore
+	sensor.rooms = ['not_a_room_instance']  # type: ignore
 	with pytest.raises(ValidationError):
 		sensor.validate()
+
 
 def test_invalid_coordinates_no_latitude(valid_sensor_data):
 	sensor = Sensor(**valid_sensor_data)
@@ -96,8 +104,10 @@ def test_invalid_coordinates_no_latitude(valid_sensor_data):
 		sensor.latitude = None
 		sensor.validate()
 
+
 def test_invalid_coordinates_invalid_longitude(valid_sensor_data):
 	sensor = Sensor(**valid_sensor_data)
 	sensor.longitude = 'invalid_longitude'
 	with pytest.raises(ValidationError):
 		sensor.validate()
+
