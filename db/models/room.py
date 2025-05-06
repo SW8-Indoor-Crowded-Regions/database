@@ -8,6 +8,7 @@ from mongoengine import (
 	ListField,
 )
 from bson import ObjectId
+from pyproj import Geod
 
 # Define allowed room types as a constant variable
 ROOM_TYPES = ('MEETING', 'LOBBY', 'OFFICE', 'EXHIBITION', 'RESTROOM', 'SHOP', 'RESTAURANT')
@@ -110,15 +111,14 @@ class Room(Document):
 					raise ValidationError(error_message)
 
 	def compute_area(self) -> float:
-		"""Computes area using the Shoelace formula from polygon borders."""
-		points = self.borders
-		if not points or len(points) < 3:
+		"""Computes geodesic area in square meters from lat/lon borders using pyproj."""
+		if not self.borders or len(self.borders) < 3:
 			return 0.0
-		area = 0.0
-		n = len(points)
-		for i in range(n):
-			x1, y1 = points[i]
-			x2, y2 = points[(i + 1) % n]
-			area += (x1 * y2) - (x2 * y1)
-		return abs(area) / 2.0
+		# WGS84 ellipsoid (standard for lat/lon)
+		geod = Geod(ellps="WGS84")
+		# Extract longitudes and latitudes from borders
+		lons, lats = zip(*self.borders)
+		# Compute area (in square meters); may be negative if polygon is clockwise
+		area, _ = geod.polygon_area_perimeter(lons, lats)
+		return round(abs(area), 2)  # Always return positive area
 
