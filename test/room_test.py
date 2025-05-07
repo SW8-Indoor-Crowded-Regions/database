@@ -1,5 +1,4 @@
 import pytest
-import math
 from mongoengine import connect, disconnect
 import mongomock
 from db.models import Room
@@ -338,11 +337,11 @@ def test_valid_borders(valid_room_data):
 
 def test_compute_area_from_four_borders(valid_room_data):
 	"""Test that compute_area correctly calculates the polygon area."""
-	valid_room_data["borders"] = [
+	valid_room_data['borders'] = [
 		[12.340000, 56.780000],
-		[12.340180, 56.780000],  
-		[12.340180, 56.780090],  
-		[12.340000, 56.780090],  
+		[12.340180, 56.780000],
+		[12.340180, 56.780090],
+		[12.340000, 56.780090],
 	]
 
 	room = Room(**valid_room_data)
@@ -351,25 +350,26 @@ def test_compute_area_from_four_borders(valid_room_data):
 
 
 def test_compute_area_with_two_borders(valid_room_data):
-    """Test that compute_area returns 0.0 when only two border points are provided."""
-    valid_room_data["borders"] = [
-        [0.0, 0.0],
-        [4.0, 0.0],
-    ]
-    room = Room(**valid_room_data)
-    area = room.compute_area()
-    assert area == 0.0
+	"""Test that compute_area returns 0.0 when only two border points are provided."""
+	valid_room_data['borders'] = [
+		[0.0, 0.0],
+		[4.0, 0.0],
+	]
+	room = Room(**valid_room_data)
+	area = room.compute_area()
+	assert area == 0.0
 
 
 def test_compute_area_with_five_borders(valid_room_data):
 	"""Test that compute_area correctly calculates the area of a pentagon."""
-	valid_room_data["borders"] = [
+	valid_room_data['borders'] = [
 		[12.340000, 56.780000],
 		[12.340090, 56.780000],
 		[12.340130, 56.780050],
 		[12.340045, 56.780120],
 		[12.339990, 56.780050],
-		]
+	]
 	room = Room(**valid_room_data)
-	area = room.compute_area() 
+	area = room.compute_area()
 	assert area == 72.5
+
